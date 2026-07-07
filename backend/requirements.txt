@@ -1,0 +1,15 @@
+fastapi
+uvicorn
+sqlalchemy
+pydantic
+pydantic-settings
+python-multipart
+python-jose[cryptography]
+bcrypt
+pymupdf
+sentence-transformers
+httpx
+numpy
+psycopg2-binary
+email-validator
+

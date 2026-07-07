@@ -1,0 +1,79 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-50: #f5f3ff;
+  --color-brand-100: #e0e7ff;
+  --color-brand-500: #6366f1;
+  --color-brand-600: #4f46e5;
+  --color-brand-700: #4338ca;
+  --color-brand-800: #3730a3;
+  --color-brand-900: #312e81;
+  
+  --color-ui-bg: #f5f7fa;
+  --color-ui-card: #ffffff;
+  --color-ui-border: #e5e7eb;
+  --color-ui-text-main: #111827;
+  --color-ui-text-muted: #6b7280;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background-color: #f5f7fa;
+  color: #111827;
+  overflow-x: hidden;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f5f7fa;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #e5e7eb;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #d1d5db;
+}
+
+.premium-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+  border-radius: 16px;
+  transition: all 0.2s ease-in-out;
+}
+
+.premium-card:hover {
+  background: #fafafb;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px);
+}
+
+.sidebar-active {
+  background-color: #4f46e5;
+  color: #ffffff;
+}
+
+.responsive-container {
+  max-width: 1500px;
+  width: 100%;
+  margin: 0 auto;
+  padding-left: clamp(24px, 4vw, 48px);
+  padding-right: clamp(24px, 4vw, 48px);
+}
