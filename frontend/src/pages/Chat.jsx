@@ -114,7 +114,7 @@ const Chat = () => {
   };
 
   return (
-    <div className="flex flex-col h-[calc(100vh-8rem)]">
+    <div className="flex flex-col h-[calc(100vh-13.5rem)] md:h-[calc(100vh-8rem)]">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center pb-4 border-b border-slate-100 gap-4">
         <div>
           <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight flex items-center gap-2">
@@ -154,8 +154,8 @@ const Chat = () => {
               key={i} 
               className={`flex gap-4 p-5 rounded-2xl ${
                 msg.role === 'user' 
-                  ? 'bg-indigo-50/70 border border-indigo-100/80 ml-12' 
-                  : 'bg-white border border-slate-100 mr-12 shadow-sm'
+                  ? 'bg-indigo-50/70 border border-indigo-100/80 ml-4 md:ml-12' 
+                  : 'bg-white border border-slate-100 mr-4 md:mr-12 shadow-sm'
               }`}
             >
               <div className="flex-1 space-y-3">
@@ -180,7 +180,7 @@ const Chat = () => {
         )}
 
         {loading && (
-          <div className="flex gap-4 p-5 rounded-2xl bg-white border border-slate-100 mr-12 animate-pulse shadow-sm">
+          <div className="flex gap-4 p-5 rounded-2xl bg-white border border-slate-100 mr-4 md:mr-12 animate-pulse shadow-sm">
             <div className="flex-1 space-y-3">
               <div className="h-3 w-12 bg-slate-100 rounded"></div>
               <div className="space-y-2">
