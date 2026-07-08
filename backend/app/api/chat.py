@@ -37,7 +37,7 @@ async def chat_interaction(
             detail="No study materials available. Please upload a PDF first."
         )
         
-    search_results = vector_store.search(request.question, chunks, top_k=4)
+    search_results = vector_store.search(request.question, chunks, top_k=4, db=db)
     
     context_str = "\n\n".join([f"[Page {r['page_number']}]: {r['content']}" for r in search_results])
     

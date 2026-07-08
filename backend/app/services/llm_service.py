@@ -24,7 +24,7 @@ class LLMService:
         headers = {
             "Authorization": f"Bearer {self.api_key}",
             "Content-Type": "application/json",
-            "HTTP-Referer": "https://github.com/google-deepmind/antigravity",
+            "HTTP-Referer": "https://github.com/snehajadhav06/AI-study-companion",
             "X-Title": "AI Study Companion"
         }
         

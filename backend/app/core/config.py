@@ -3,7 +3,7 @@ from pydantic_settings import BaseSettings
 
 class Settings(BaseSettings):
     DATABASE_URL: str = "sqlite:///./study_companion.db"
-    SECRET_KEY: str = "940b54f4ee0b3e6d8a436a5c37894a8df4a69cb3a78964bf"
+    SECRET_KEY: str
     ALGORITHM: str = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 1440
     OPENROUTER_API_KEY: str = ""

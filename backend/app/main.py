@@ -1,9 +1,10 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.database.connection import engine, Base
+from app.database.connection import engine, Base, ensure_document_chunk_embedding_column
 from app.api import auth, documents, chat, summaries, flashcards, quizzes, planner, analytics
 
 Base.metadata.create_all(bind=engine)
+ensure_document_chunk_embedding_column()
 
 app = FastAPI(title="AI Study Companion API", version="1.0.0")
 

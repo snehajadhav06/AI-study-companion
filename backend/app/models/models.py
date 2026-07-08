@@ -1,5 +1,5 @@
 import datetime
-from sqlalchemy import Column, Integer, String, DateTime, ForeignKey, Text, Float
+from sqlalchemy import Column, Integer, String, DateTime, ForeignKey, Text, Float, LargeBinary
 from sqlalchemy.orm import relationship
 from app.database.connection import Base
 
@@ -44,6 +44,7 @@ class DocumentChunk(Base):
     content = Column(Text, nullable=False)
     page_number = Column(Integer, nullable=False)
     chunk_index = Column(Integer, nullable=False)
+    embedding = Column(LargeBinary, nullable=True)
 
     document = relationship("Document", back_populates="chunks")
 

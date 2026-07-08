@@ -1,7 +1,8 @@
 import os
 import fitz
 import numpy as np
-from typing import List, Dict, Any
+from typing import List, Dict, Any, Optional
+from sqlalchemy.orm import Session
 from sentence_transformers import SentenceTransformer
 from app.core.config import settings
 from app.database.connection import SessionLocal
@@ -15,14 +16,29 @@ class SimpleVectorStore:
     def get_embeddings(self, texts: List[str]) -> np.ndarray:
         return self.model.encode(texts, convert_to_numpy=True)
 
-    def search(self, query: str, chunks: List[DocumentChunk], top_k: int = 5) -> List[Dict[str, Any]]:
+    def search(self, query: str, chunks: List[DocumentChunk], top_k: int = 5, db: Optional[Session] = None) -> List[Dict[str, Any]]:
         if not chunks:
             return []
         
         query_vector = self.model.encode([query], convert_to_numpy=True)[0]
         
-        chunk_texts = [c.content for c in chunks]
-        chunk_embeddings = self.get_embeddings(chunk_texts)
+        chunk_embeddings = []
+        chunks_to_update = []
+        
+        for chunk in chunks:
+            if chunk.embedding is not None:
+                emb = np.frombuffer(chunk.embedding, dtype=np.float32)
+            else:
+                emb = self.model.encode([chunk.content], convert_to_numpy=True)[0]
+                chunk.embedding = emb.astype(np.float32).tobytes()
+                chunks_to_update.append(chunk)
+            chunk_embeddings.append(emb)
+            
+        if chunks_to_update and db:
+            try:
+                db.commit()
+            except Exception as e:
+                print(f"Error caching fallback embeddings: {e}")
         
         scores = []
         for i, emb in enumerate(chunk_embeddings):
@@ -104,12 +120,17 @@ def process_and_index_document(file_path: str, document_id: int) -> None:
     
     db = SessionLocal()
     try:
-        for c in chunks_data:
+        texts = [c["content"] for c in chunks_data]
+        embeddings = vector_store.get_embeddings(texts) if texts else []
+        
+        for i, c in enumerate(chunks_data):
+            emb_bytes = embeddings[i].astype(np.float32).tobytes() if i < len(embeddings) else None
             chunk_model = DocumentChunk(
                 document_id=document_id,
                 content=c["content"],
                 page_number=c["page_number"],
-                chunk_index=c["chunk_index"]
+                chunk_index=c["chunk_index"],
+                embedding=emb_bytes
             )
             db.add(chunk_model)
         db.commit()
