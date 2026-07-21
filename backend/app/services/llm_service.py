@@ -136,17 +136,22 @@ class LLMService:
 
     async def generate_quiz(self, text_content: str, num_questions: int, difficulty: str) -> List[Dict[str, Any]]:
         system_prompt = (
-            "Generate academic quiz questions. "
-            "Return the output as a JSON object with a single key 'questions' containing a list of objects. "
-            "Each object must have 'id' (integer), 'type' ('mcq', 'tf', 'fitb'), 'question' (text), "
-            "'options' (list of strings, only for 'mcq'), 'correct_answer' (text), and 'explanation' (text)."
+            "Create concise educational quiz questions from the provided context. "
+            "Return ONLY valid JSON with one key: 'questions'. "
+            "Each question object must include: id, type, question, options (for mcq), correct_answer, explanation. "
+            "Keep questions clear, factual, and short."
         )
-        
+
+        prompt_text = (
+            f"Generate exactly {num_questions} {difficulty}-level questions. "
+            f"Use only this context:\n{text_content[:4000]}"
+        )
+
         messages = [
             {"role": "system", "content": system_prompt},
-            {"role": "user", "content": f"Generate exactly {num_questions} questions at {difficulty} level from this text:\n{text_content[:6000]}"}
+            {"role": "user", "content": prompt_text},
         ]
-        
+
         raw_response = await self._post_request(messages, response_format="json")
         cleaned_response = self._clean_json_string(raw_response)
         try:

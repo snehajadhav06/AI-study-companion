@@ -116,6 +116,10 @@ class QuizAttemptResponse(BaseModel):
     score: int
     total_questions: int
     answers_json: str
+    correct_answers: int
+    incorrect_answers: int
+    time_taken_seconds: Optional[float] = None
+    review_details: Optional[List[Any]] = None
     created_at: datetime
 
     class Config:
