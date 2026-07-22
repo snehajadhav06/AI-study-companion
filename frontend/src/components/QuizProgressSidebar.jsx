@@ -20,7 +20,7 @@ const QuizProgressSidebar = ({ questions, answers, activeIndex, onNavigate }) =>
               cx="50"
               cy="50"
               r="42"
-              stroke="#4f46e5"
+              stroke="#7c3aed"
               strokeWidth="8"
               fill="none"
               strokeLinecap="round"
