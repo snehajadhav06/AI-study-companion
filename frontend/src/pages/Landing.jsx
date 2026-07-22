@@ -10,7 +10,7 @@ import {
   Sparkles
 } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
-
+import logo from '../assets/logo.svg';
 const Landing = () => {
   const { token } = useAuth();
   const [faqOpen, setFaqOpen] = useState({});
@@ -35,7 +35,7 @@ const Landing = () => {
       <header className="w-full sticky top-0 z-50" style={{ background: 'rgba(255,255,255,0.45)', backdropFilter: 'blur(14px)', borderBottom: '1px solid rgba(255,255,255,0.6)' }}>
         <div className="responsive-container py-4 flex justify-between items-center relative">
           <Link to={token ? "/dashboard" : "/"} className="flex items-center gap-2">
-            <div className="w-5 h-5 rounded-md" style={{ background: 'linear-gradient(135deg, #a78bfa, #60a5fa)' }}></div>
+            <img src={logo} alt="StudyAI logo" className="h-6 w-auto" />
             <span className="text-lg font-extrabold text-[#3730a3]">StudyAI</span>
           </Link>
           {!token && (
@@ -240,7 +240,7 @@ const Landing = () => {
           <div className="max-w-2xl mx-auto flex flex-col sm:flex-row sm:justify-between gap-8 mb-8">
             <div className="space-y-2 max-w-xs">
               <div className="flex items-center gap-2">
-                <div className="w-4 h-4 rounded-md" style={{ background: 'linear-gradient(135deg, #a78bfa, #60a5fa)' }}></div>
+                <img src={logo} alt="StudyAI logo" className="h-5 w-auto" />
                 <span className="text-sm font-extrabold text-[#3730a3]">StudyAI</span>
               </div>
               <p className="text-[11px] text-[#6d5b9c] leading-relaxed">

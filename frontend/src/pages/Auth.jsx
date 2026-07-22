@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import { Loader2 } from 'lucide-react';
-
+import logo from '../assets/logo.svg';
 const Auth = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState('');
@@ -42,7 +42,7 @@ const Auth = () => {
         <div className="max-w-sm w-full">
           <div className="flex flex-col items-center mb-8">
             <Link to="/" className="flex items-center gap-2 mb-6">
-              <div className="w-5 h-5 rounded-md" style={{ background: 'linear-gradient(135deg, #a78bfa, #60a5fa)' }}></div>
+              <img src={logo} alt="StudyAI logo" className="h-6 w-auto" />
               <span className="text-lg font-extrabold text-[#3730a3]">StudyAI</span>
             </Link>
             <h2 className="text-xl font-extrabold text-[#3730a3]">

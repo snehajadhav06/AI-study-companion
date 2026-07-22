@@ -17,7 +17,7 @@ import {
   X
 } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
-
+import logo from '../assets/logo.svg';
 const SidebarLayout = ({ children }) => {
   const { user, logout } = useAuth();
   const location = useLocation();
@@ -60,7 +60,7 @@ const SidebarLayout = ({ children }) => {
             <Menu className="h-6 w-6" />
           </button>
           <Link to="/dashboard" className="flex items-center gap-2">
-            <div className="w-5 h-5 rounded-md" style={{ background: 'linear-gradient(135deg, #a78bfa, #60a5fa)' }}></div>
+            <img src={logo} alt="StudyAI logo" className="h-6 w-auto" />
             <span className="text-lg font-extrabold text-[#3730a3]">StudyAI</span>
           </Link>
         </div>
@@ -89,7 +89,7 @@ const SidebarLayout = ({ children }) => {
             <div>
               <div className="flex items-center justify-between p-5" style={{ borderBottom: '1px solid rgba(255,255,255,0.6)' }}>
                 <Link to="/dashboard" className="flex items-center gap-2" onClick={() => setIsMobileOpen(false)}>
-                  <div className="w-5 h-5 rounded-md" style={{ background: 'linear-gradient(135deg, #a78bfa, #60a5fa)' }}></div>
+                  <img src={logo} alt="StudyAI logo" className="h-6 w-auto" />
                   <span className="text-lg font-extrabold text-[#3730a3]">StudyAI</span>
                 </Link>
                 <button
@@ -164,7 +164,7 @@ const SidebarLayout = ({ children }) => {
 
         <div>
           <Link to="/dashboard" className={`p-6 flex items-center gap-2 hover:opacity-90 ${isCollapsed ? 'justify-center' : ''}`} style={{ borderBottom: '1px solid rgba(255,255,255,0.6)' }}>
-            <div className="w-5 h-5 rounded-md flex-shrink-0" style={{ background: 'linear-gradient(135deg, #a78bfa, #60a5fa)' }}></div>
+            <img src={logo} alt="StudyAI logo" className="h-6 w-auto flex-shrink-0" />
             {!isCollapsed && <span className="text-xl font-extrabold text-[#3730a3]">StudyAI</span>}
           </Link>
           
