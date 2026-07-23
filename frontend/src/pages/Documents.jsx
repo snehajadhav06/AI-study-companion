@@ -37,12 +37,15 @@ const Documents = () => {
     }
   };
 
+  const ALLOWED_EXTENSIONS = ['.pdf', '.docx', '.txt', '.pptx'];
+
   const handleFileUpload = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
-    
-    if (file.type !== 'application/pdf') {
-      setErrorMessage('Only PDF documents are supported currently.');
+
+    const fileExt = file.name.toLowerCase().slice(file.name.lastIndexOf('.'));
+    if (!ALLOWED_EXTENSIONS.includes(fileExt)) {
+      setErrorMessage(`Unsupported file type. Allowed types: ${ALLOWED_EXTENSIONS.join(', ')}`);
       return;
     }
 
@@ -98,14 +101,14 @@ const Documents = () => {
           <div className="border-2 border-dashed border-slate-200 hover:border-indigo-500/50 rounded-2xl p-8 flex flex-col items-center justify-center text-center transition-all cursor-pointer relative group bg-slate-50/50">
             <input 
               type="file" 
-              accept=".pdf" 
+              accept=".pdf,.docx,.txt,.pptx" 
               onChange={handleFileUpload} 
               disabled={uploading}
               className="absolute inset-0 opacity-0 cursor-pointer" 
             />
             <Upload className="h-10 w-10 text-slate-400 group-hover:text-indigo-600 transition-all mb-4" />
-            <span className="text-sm font-bold text-slate-700">Click or drag PDF to upload</span>
-            <span className="text-xs text-slate-400 mt-1">Max file size 20MB</span>
+            <span className="text-sm font-bold text-slate-700">Click or drag a file to upload</span>
+            <span className="text-xs text-slate-400 mt-1">PDF, DOCX, PPTX, or TXT · Max file size 20MB</span>
           </div>
 
           {uploading && (
@@ -142,7 +145,7 @@ const Documents = () => {
             <div className="text-center py-16 border border-slate-100 rounded-xl bg-slate-50/20">
               <FileText className="h-12 w-12 text-slate-300 mx-auto mb-4" />
               <p className="text-sm font-bold text-slate-700">No documents found</p>
-              <p className="text-xs text-slate-400 mt-1">Upload a PDF file to begin study analysis.</p>
+              <p className="text-xs text-slate-400 mt-1">Upload a document to begin study analysis.</p>
             </div>
           ) : (
             <div className="space-y-4">

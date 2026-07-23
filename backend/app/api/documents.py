@@ -7,8 +7,8 @@ from app.database.connection import get_db
 from app.models.models import Document, User
 from app.schemas.schemas import DocumentResponse
 from app.api.deps import get_current_user
-from app.services.rag_service import process_and_index_document
 from app.core.config import settings
+from app.services.rag_service import process_and_index_document, SUPPORTED_EXTENSIONS
 
 router = APIRouter()
 
@@ -19,10 +19,11 @@ async def upload_document(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
-    if not file.filename.lower().endswith(".pdf"):
+    file_ext = os.path.splitext(file.filename.lower())[1]
+    if file_ext not in SUPPORTED_EXTENSIONS:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Only PDF files are supported"
+            detail=f"Unsupported file type. Allowed types: {', '.join(SUPPORTED_EXTENSIONS)}"
         )
     
     os.makedirs(settings.UPLOADS_DIR, exist_ok=True)

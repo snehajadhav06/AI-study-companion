@@ -12,4 +12,5 @@ httpx
 numpy
 psycopg2-binary
 email-validator
-
+python-docx
+python-pptx

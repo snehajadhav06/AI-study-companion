@@ -10,6 +10,44 @@ import {
   Printer
 } from 'lucide-react';
 
+const markdownComponents = {
+  h1: ({ children }) => (
+    <h1 className="text-xl font-extrabold text-slate-900 mt-6 mb-3 first:mt-0">{children}</h1>
+  ),
+  h2: ({ children }) => (
+    <h2 className="text-lg font-extrabold text-indigo-700 mt-7 mb-3 pb-2 border-b border-indigo-100 first:mt-0">{children}</h2>
+  ),
+  h3: ({ children }) => (
+    <h3 className="text-base font-extrabold text-indigo-700 mt-7 mb-3 pb-2 border-b border-indigo-100 first:mt-0">{children}</h3>
+  ),
+  p: ({ children }) => (
+    <p className="text-sm text-slate-700 leading-relaxed mb-3">{children}</p>
+  ),
+  ul: ({ children }) => (
+    <ul className="space-y-2 mb-4 pl-1">{children}</ul>
+  ),
+  ol: ({ children }) => (
+    <ol className="space-y-2 mb-4 pl-1">{children}</ol>
+  ),
+  li: ({ children, ordered, index }) => (
+    <li className="flex gap-2.5 text-sm text-slate-700 leading-relaxed">
+      <span className="text-indigo-400 font-bold mt-0.5 flex-shrink-0 min-w-[14px]">
+        {ordered ? `${(index ?? 0) + 1}.` : '•'}
+      </span>
+      <span>{children}</span>
+    </li>
+  ),
+  strong: ({ children }) => (
+    <strong className="font-bold text-slate-900">{children}</strong>
+  ),
+  code: ({ children }) => (
+    <code className="bg-indigo-50 text-indigo-700 px-1.5 py-0.5 rounded-md text-xs font-mono border border-indigo-100">{children}</code>
+  ),
+  pre: ({ children }) => (
+    <pre className="bg-slate-900 text-slate-100 p-4 rounded-xl text-xs font-mono overflow-x-auto mb-4">{children}</pre>
+  ),
+};
+
 const Summaries = () => {
   const location = useLocation();
   const [documents, setDocuments] = useState([]);
@@ -152,8 +190,8 @@ const Summaries = () => {
                 </div>
               </div>
               
-              <div className="text-slate-700 leading-relaxed text-sm prose prose-slate max-w-none">
-                <ReactMarkdown>{selectedSummary.content}</ReactMarkdown>
+              <div className="max-w-none">
+                <ReactMarkdown components={markdownComponents}>{selectedSummary.content}</ReactMarkdown>
               </div>
             </div>
           ) : (

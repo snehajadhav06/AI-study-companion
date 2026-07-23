@@ -56,7 +56,7 @@ const Landing = () => {
       </header>
 
       <section className="relative py-16 sm:py-24 text-center">
-        <div className="responsive-container max-w-2xl mx-auto relative z-10">
+        <div className="responsive-container max-w-4xl mx-auto relative z-10">
           <div 
             className="inline-flex items-center gap-1.5 text-[11px] font-bold px-3.5 py-1.5 rounded-full mb-6"
             style={{ background: 'rgba(255,255,255,0.55)', backdropFilter: 'blur(10px)', border: '1px solid rgba(255,255,255,0.7)', color: '#6d28d9' }}
@@ -96,7 +96,7 @@ const Landing = () => {
       <section className="relative py-6 pb-16">
         <div className="responsive-container relative z-10">
           <div 
-            className="max-w-lg mx-auto rounded-2xl p-4"
+            className="max-w-2xl mx-auto rounded-2xl p-4"
             style={{ background: 'rgba(255,255,255,0.5)', backdropFilter: 'blur(16px)', border: '1px solid rgba(255,255,255,0.7)', boxShadow: '0 8px 32px rgba(124,58,237,0.12)' }}
           >
             <div className="text-[10px] font-bold text-[#7c5cbf] mb-2.5">AI ASSISTANT</div>
@@ -121,11 +121,11 @@ const Landing = () => {
 
       <section id="features" className="relative py-16 sm:py-20 text-center">
         <div className="responsive-container relative z-10">
-          <div className="space-y-3 max-w-xl mx-auto mb-14">
+          <div className="space-y-3 max-w-2xl mx-auto mb-14">
             <h2 className="text-2xl sm:text-3xl font-extrabold text-[#3730a3]">Why choose AI Study Companion</h2>
             <p className="text-sm text-[#6d5b9c] font-medium">Everything you need, wrapped in a calmer place to study.</p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-3xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
             {features.map((item, i) => {
               const Icon = item.icon;
               return (
@@ -142,11 +142,11 @@ const Landing = () => {
 
       <section id="how-it-works" className="relative py-16 sm:py-20 text-center">
         <div className="responsive-container relative z-10">
-          <div className="space-y-3 max-w-xl mx-auto mb-14">
+          <div className="space-y-3 max-w-2xl mx-auto mb-14">
             <h2 className="text-2xl sm:text-3xl font-extrabold text-[#3730a3]">How it works</h2>
             <p className="text-sm text-[#6d5b9c] font-medium">Four gentle steps from notes to mastery.</p>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-4xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
             {[
               { step: '1', title: 'Upload notes', desc: 'Drag in a PDF, textbook, or slide deck.' },
               { step: '2', title: 'Ask naturally', desc: 'Type a question like you would to a tutor.' },
@@ -170,11 +170,11 @@ const Landing = () => {
 
       <section className="relative py-16 sm:py-20 text-center">
         <div className="responsive-container relative z-10">
-          <div className="space-y-3 max-w-xl mx-auto mb-14">
+          <div className="space-y-3 max-w-2xl mx-auto mb-14">
             <h2 className="text-2xl sm:text-3xl font-extrabold text-[#3730a3]">Built with privacy in mind</h2>
             <p className="text-sm text-[#6d5b9c] font-medium">Your notes stay yours, fully sandboxed and private.</p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-3xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
             {[
               { title: 'Encrypted uploads', desc: 'Secure transit and safe database instances.' },
               { title: 'Private indexing', desc: 'PDFs are processed in isolated environments.' },
@@ -191,7 +191,7 @@ const Landing = () => {
       </section>
 
       <section id="faq" className="relative py-16 sm:py-20">
-        <div className="responsive-container relative z-10 max-w-xl mx-auto">
+        <div className="responsive-container relative z-10 max-w-2xl mx-auto">
           <h2 className="text-2xl sm:text-3xl font-extrabold text-[#3730a3] text-center mb-10">Frequently asked questions</h2>
           <div className="space-y-3">
             {[
@@ -219,7 +219,7 @@ const Landing = () => {
       </section>
 
       <section className="relative py-16 sm:py-20 text-center">
-        <div className="responsive-container relative z-10 max-w-md mx-auto">
+        <div className="responsive-container relative z-10 max-w-lg mx-auto">
           <h2 className="text-xl sm:text-2xl font-extrabold text-[#3730a3] mb-3">Ready to study smarter?</h2>
           <p className="text-xs text-[#6d5b9c] mb-6 leading-relaxed">
             Join students turning their notes into answers, flashcards, and quizzes.
@@ -237,7 +237,7 @@ const Landing = () => {
 
       <footer className="relative" style={{ background: 'rgba(255,255,255,0.4)', backdropFilter: 'blur(10px)', borderTop: '1px solid rgba(255,255,255,0.6)' }}>
         <div className="responsive-container py-12 relative z-10">
-          <div className="max-w-2xl mx-auto flex flex-col sm:flex-row sm:justify-between gap-8 mb-8">
+          <div className="max-w-4xl mx-auto flex flex-col sm:flex-row sm:justify-between gap-8 mb-8">
             <div className="space-y-2 max-w-xs">
               <div className="flex items-center gap-2">
                 <img src={logo} alt="StudyAI logo" className="h-5 w-auto" />
@@ -279,7 +279,7 @@ const Landing = () => {
               </div>
             </div>
           </div>
-          <div className="max-w-2xl mx-auto border-t pt-6 text-center text-[11px] text-[#8b7bb0]" style={{ borderColor: 'rgba(255,255,255,0.6)' }}>
+          <div className="max-w-4xl mx-auto border-t pt-6 text-center text-[11px] text-[#8b7bb0]" style={{ borderColor: 'rgba(255,255,255,0.6)' }}>
             © {new Date().getFullYear()} StudyAI. Built for next-generation learners.
           </div>
         </div>

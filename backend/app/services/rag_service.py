@@ -3,12 +3,16 @@ import re
 import time
 import fitz
 import numpy as np
+from docx import Document as DocxDocument
+from pptx import Presentation
 from typing import List, Dict, Any, Optional
 from sqlalchemy.orm import Session
 from sentence_transformers import SentenceTransformer
 from app.core.config import settings
 from app.database.connection import SessionLocal
 from app.models.models import DocumentChunk
+
+SUPPORTED_EXTENSIONS = (".pdf", ".docx", ".txt", ".pptx")
 
 
 class SimpleVectorStore:
@@ -92,6 +96,106 @@ def extract_text_from_pdf(file_path: str) -> List[Dict[str, Any]]:
     print(f"PDF Extraction: {elapsed_ms}ms")
     return pages_content
 
+def extract_text_from_docx(file_path: str, words_per_page: int = 500) -> List[Dict[str, Any]]:
+    start = time.perf_counter()
+    doc = DocxDocument(file_path)
+    pages_content = []
+    current_words = []
+    page_num = 1
+
+    def flush():
+        nonlocal current_words, page_num
+        if current_words:
+            pages_content.append({
+                "page_number": page_num,
+                "text": " ".join(current_words),
+            })
+            page_num += 1
+            current_words = []
+
+    for para in doc.paragraphs:
+        text = para.text.strip()
+        if not text:
+            continue
+        current_words.extend(text.split())
+        if len(current_words) >= words_per_page:
+            flush()
+
+    for table in doc.tables:
+        for row in table.rows:
+            row_text = " | ".join(cell.text.strip() for cell in row.cells if cell.text.strip())
+            if row_text:
+                current_words.extend(row_text.split())
+                if len(current_words) >= words_per_page:
+                    flush()
+
+    flush()
+
+    elapsed_ms = round((time.perf_counter() - start) * 1000, 1)
+    print(f"DOCX Extraction: {elapsed_ms}ms")
+    return pages_content
+
+
+def extract_text_from_pptx(file_path: str) -> List[Dict[str, Any]]:
+    start = time.perf_counter()
+    prs = Presentation(file_path)
+    pages_content = []
+
+    for slide_num, slide in enumerate(prs.slides, start=1):
+        slide_text_parts = []
+        for shape in slide.shapes:
+            if shape.has_text_frame:
+                for paragraph in shape.text_frame.paragraphs:
+                    line = "".join(run.text for run in paragraph.runs).strip()
+                    if line:
+                        slide_text_parts.append(line)
+            if shape.has_table:
+                for row in shape.table.rows:
+                    row_text = " | ".join(cell.text.strip() for cell in row.cells if cell.text.strip())
+                    if row_text:
+                        slide_text_parts.append(row_text)
+
+        text = "\n".join(slide_text_parts)
+        if text.strip():
+            pages_content.append({"page_number": slide_num, "text": text})
+
+    elapsed_ms = round((time.perf_counter() - start) * 1000, 1)
+    print(f"PPTX Extraction: {elapsed_ms}ms")
+    return pages_content
+
+
+def extract_text_from_txt(file_path: str, words_per_page: int = 500) -> List[Dict[str, Any]]:
+    start = time.perf_counter()
+    with open(file_path, "r", encoding="utf-8", errors="ignore") as f:
+        raw_text = f.read()
+
+    words = raw_text.split()
+    pages_content = []
+    page_num = 1
+    for i in range(0, len(words), words_per_page):
+        chunk_words = words[i:i + words_per_page]
+        text = " ".join(chunk_words)
+        if text.strip():
+            pages_content.append({"page_number": page_num, "text": text})
+            page_num += 1
+
+    elapsed_ms = round((time.perf_counter() - start) * 1000, 1)
+    print(f"TXT Extraction: {elapsed_ms}ms")
+    return pages_content
+
+
+def extract_text(file_path: str) -> List[Dict[str, Any]]:
+    ext = os.path.splitext(file_path)[1].lower()
+    if ext == ".pdf":
+        return extract_text_from_pdf(file_path)
+    elif ext == ".docx":
+        return extract_text_from_docx(file_path)
+    elif ext == ".pptx":
+        return extract_text_from_pptx(file_path)
+    elif ext == ".txt":
+        return extract_text_from_txt(file_path)
+    raise ValueError(f"Unsupported file type: {ext}")
+
 
 def chunk_text(pages: List[Dict[str, Any]], chunk_size: int = 700, chunk_overlap: int = 120) -> List[Dict[str, Any]]:
     chunks = []
@@ -134,7 +238,7 @@ def chunk_text(pages: List[Dict[str, Any]], chunk_size: int = 700, chunk_overlap
 
 def process_and_index_document(file_path: str, document_id: int) -> None:
     start = time.perf_counter()
-    pages = extract_text_from_pdf(file_path)
+    pages = extract_text(file_path)
     chunks_data = chunk_text(pages)
 
     db = SessionLocal()

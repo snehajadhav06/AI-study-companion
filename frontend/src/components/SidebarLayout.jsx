@@ -12,7 +12,7 @@ import {
   Flame,
   ChevronLeft,
   ChevronRight,
-  TrendingUp,
+  BookOpen,
   Menu,
   X
 } from 'lucide-react';
@@ -32,7 +32,7 @@ const SidebarLayout = ({ children }) => {
     { name: 'Flashcards', path: '/flashcards', icon: Copy },
     { name: 'Quiz', path: '/quiz', icon: HelpCircle },
     { name: 'Planner', path: '/planner', icon: Calendar },
-    { name: 'Analytics', path: '/analytics', icon: TrendingUp },
+    { name: 'Summaries', path: '/summaries', icon: BookOpen },
   ];
 
   const handleLogout = () => {
@@ -43,7 +43,7 @@ const SidebarLayout = ({ children }) => {
   const avatarLetter = (user?.full_name || user?.email || 'U').charAt(0).toUpperCase();
 
   const glassPanel = { background: 'rgba(255,255,255,0.45)', backdropFilter: 'blur(16px)', WebkitBackdropFilter: 'blur(16px)' };
-
+  const sidebarPanel = { background: '#6ca1fa' };
   return (
     <div className="flex flex-col md:flex-row h-screen text-[#2e2350] overflow-hidden relative">
 
@@ -85,7 +85,7 @@ const SidebarLayout = ({ children }) => {
             className="fixed inset-0 bg-[#2e2350]/30 backdrop-blur-sm transition-opacity duration-300"
           />
 
-          <aside className="relative flex flex-col justify-between w-64 max-w-xs h-full z-50" style={{ ...glassPanel, borderRight: '1px solid rgba(255,255,255,0.6)' }}>
+          <aside className="relative flex flex-col justify-between w-64 max-w-xs h-full z-50" style={{ ...sidebarPanel, borderRight: '1px solid rgba(255,255,255,0.25)' }}>
             <div>
               <div className="flex items-center justify-between p-5" style={{ borderBottom: '1px solid rgba(255,255,255,0.6)' }}>
                 <Link to="/dashboard" className="flex items-center gap-2" onClick={() => setIsMobileOpen(false)}>
@@ -153,7 +153,7 @@ const SidebarLayout = ({ children }) => {
         </div>
       )}
 
-      <aside className={`hidden md:flex flex-col justify-between transition-all duration-300 relative z-10 ${isCollapsed ? 'w-20' : 'w-64'}`} style={{ ...glassPanel, borderRight: '1px solid rgba(255,255,255,0.6)' }}>
+      <aside className={`hidden md:flex flex-col justify-between transition-all duration-300 relative z-10 ${isCollapsed ? 'w-20' : 'w-64'}`} style={{ ...sidebarPanel, borderRight: '1px solid rgba(255,255,255,0.25)' }}>
         <button
           onClick={() => setIsCollapsed(!isCollapsed)}
           className="absolute -right-3.5 top-6.5 text-[#6d5b9c] hover:text-[#3730a3] p-1.5 rounded-full cursor-pointer z-10 transition-all hover:scale-110"

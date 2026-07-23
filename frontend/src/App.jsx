@@ -47,7 +47,7 @@ function AppContent() {
       <Route path="/quizzes" element={<ProtectedRoute><Quizzes /></ProtectedRoute>} />
       <Route path="/quiz" element={<ProtectedRoute><Quizzes /></ProtectedRoute>} />
       <Route path="/planner" element={<ProtectedRoute><StudyPlanner /></ProtectedRoute>} />
-      <Route path="/analytics" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+      <Route path="/analytics" element={<Navigate to="/dashboard" replace />} />
       <Route path="/settings" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
