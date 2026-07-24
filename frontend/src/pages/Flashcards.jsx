@@ -3,12 +3,10 @@ import axios from 'axios';
 import { 
   Copy, 
   Sparkles, 
-  FileText, 
   RotateCw, 
   ThumbsUp, 
   ThumbsDown,
-  Info,
-  CheckCircle2
+  Info
 } from 'lucide-react';
 
 const Flashcards = () => {
@@ -96,39 +94,39 @@ const Flashcards = () => {
   const activeCard = flashcards[currentIndex];
 
   return (
-    <div className="space-y-8">
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center pb-4 border-b border-slate-100 gap-4">
+    <div className="space-y-8 text-white text-left">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center pb-4 border-b border-white/10 gap-4">
         <div>
-          <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight">Active Flashcards</h1>
-          <p className="text-slate-500 mt-1">Review, memorize, and optimize concepts using the Leitner repetition boxes.</p>
+          <h1 className="text-3xl font-extrabold tracking-tight">Active Flashcards</h1>
+          <p className="text-gray-300 mt-1">Review, memorize, and optimize concepts using the Leitner repetition boxes.</p>
         </div>
 
         <div className="flex flex-wrap items-center gap-3 w-full sm:w-auto">
           <select
             value={selectedDocId}
             onChange={(e) => setSelectedDocId(e.target.value)}
-            className="bg-white border border-slate-200 rounded-xl px-4 py-2 text-slate-805 focus:outline-none focus:border-indigo-500 text-sm w-full sm:w-56"
+            className="bg-white/5 border border-white/10 rounded-xl px-4 py-2 text-white focus:outline-none focus:border-[#8B5CF6] focus:ring-4 focus:ring-[#8B5CF6]/15 text-sm w-full sm:w-56 animate-fade-in"
           >
-            <option value="">Select document...</option>
+            <option value="" className="bg-[#071020] text-white">Select document...</option>
             {documents.map((doc) => (
-              <option key={doc.id} value={doc.id}>{doc.filename}</option>
+              <option key={doc.id} value={doc.id} className="bg-[#071020] text-white">{doc.filename}</option>
             ))}
           </select>
 
           <select
             value={numCards}
             onChange={(e) => setNumCards(e.target.value)}
-            className="bg-white border border-slate-200 rounded-xl px-4 py-2 text-slate-805 focus:outline-none focus:border-indigo-500 text-sm w-full sm:w-24"
+            className="bg-white/5 border border-white/10 rounded-xl px-4 py-2 text-white focus:outline-none focus:border-[#8B5CF6] focus:ring-4 focus:ring-[#8B5CF6]/15 text-sm w-full sm:w-24"
           >
-            <option value="5">5 Cards</option>
-            <option value="10">10 Cards</option>
-            <option value="15">15 Cards</option>
+            <option value="5" className="bg-[#071020]">5 Cards</option>
+            <option value="10" className="bg-[#071020]">10 Cards</option>
+            <option value="15" className="bg-[#071020]">15 Cards</option>
           </select>
 
           <button
             onClick={handleGenerate}
             disabled={!selectedDocId || generating}
-            className="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-4 py-2 rounded-xl flex items-center gap-1.5 transition-all text-sm disabled:opacity-50 cursor-pointer shadow-lg shadow-indigo-100"
+            className="bg-gradient-to-r from-[#6366F1] to-[#8B5CF6] hover:shadow-[0_0_20px_rgba(139,92,246,0.35)] text-white font-semibold px-4 py-2 rounded-xl flex items-center gap-1.5 transition-all text-sm disabled:opacity-50 cursor-pointer hover:-translate-y-0.5"
           >
             <Sparkles className="h-4 w-4" />
             {generating ? 'Generating...' : 'Generate'}
@@ -139,9 +137,9 @@ const Flashcards = () => {
       <div className="max-w-xl mx-auto space-y-6">
         {flashcards.length > 0 && activeCard ? (
           <div>
-            <div className="flex justify-between items-center text-xs font-bold text-slate-400 mb-3 px-1">
+            <div className="flex justify-between items-center text-xs font-bold text-gray-400 mb-3 px-1">
               <span>CARD {currentIndex + 1} OF {flashcards.length}</span>
-              <span className="bg-indigo-50 text-indigo-600 px-3 py-1 rounded-full border border-indigo-100">{activeCard.topic}</span>
+              <span className="bg-[#6366F1]/20 text-[#A78BFA] px-3 py-1 rounded-full border border-[#6366F1]/30">{activeCard.topic}</span>
             </div>
 
             <div 
@@ -157,29 +155,29 @@ const Flashcards = () => {
                 }}
               >
                 <div 
-                  className="absolute inset-0 w-full h-full p-8 rounded-2xl bg-white border border-slate-200 flex flex-col justify-between items-center text-center shadow-lg backface-hidden"
+                  className="absolute inset-0 w-full h-full p-8 rounded-2xl bg-white/8 border border-white/15 flex flex-col justify-between items-center text-center shadow-[0_20px_60px_rgba(0,0,0,0.35)] backdrop-blur-[20px] backface-hidden"
                   style={{ backfaceVisibility: 'hidden' }}
                 >
                   <div className="flex-1 flex items-center justify-center">
-                    <p className="text-xl font-bold text-slate-800 leading-relaxed">{activeCard.front}</p>
+                    <p className="text-xl font-bold text-white leading-relaxed">{activeCard.front}</p>
                   </div>
-                  <div className="flex items-center gap-1.5 text-xs text-slate-400 font-semibold">
+                  <div className="flex items-center gap-1.5 text-xs text-gray-400 font-semibold">
                     <RotateCw className="h-3.5 w-3.5" />
                     <span>Click to reveal answer</span>
                   </div>
                 </div>
 
                 <div 
-                  className="absolute inset-0 w-full h-full p-8 rounded-2xl bg-indigo-50/70 border border-indigo-200/50 flex flex-col justify-between items-center text-center shadow-lg backface-hidden"
+                  className="absolute inset-0 w-full h-full p-8 rounded-2xl bg-[#6366F1]/10 border border-[#6366F1]/20 flex flex-col justify-between items-center text-center shadow-[0_20px_60px_rgba(0,0,0,0.35)] backdrop-blur-[20px] backface-hidden"
                   style={{ 
                     backfaceVisibility: 'hidden',
                     transform: 'rotateY(180deg)'
                   }}
                 >
                   <div className="flex-1 flex items-center justify-center">
-                    <p className="text-lg text-indigo-950 leading-relaxed font-bold">{activeCard.back}</p>
+                    <p className="text-lg text-white leading-relaxed font-bold">{activeCard.back}</p>
                   </div>
-                  <div className="flex items-center gap-1.5 text-xs text-indigo-600 font-semibold">
+                  <div className="flex items-center gap-1.5 text-xs text-[#A78BFA] font-semibold">
                     <RotateCw className="h-3.5 w-3.5" />
                     <span>Click to see question</span>
                   </div>
@@ -191,14 +189,14 @@ const Flashcards = () => {
               <div className="flex gap-4 mt-6">
                 <button
                   onClick={(e) => { e.stopPropagation(); handleReview('hard'); }}
-                  className="flex-1 bg-red-50 hover:bg-red-100/80 border border-red-200 text-red-600 font-bold py-3.5 px-4 rounded-xl flex items-center justify-center gap-2 cursor-pointer transition-all"
+                  className="flex-1 bg-red-950/20 hover:bg-red-900/30 border border-red-500/20 text-red-300 font-bold py-3.5 px-4 rounded-xl flex items-center justify-center gap-2 cursor-pointer transition-all"
                 >
                   <ThumbsDown className="h-4 w-4" />
                   Still Learning (Hard)
                 </button>
                 <button
                   onClick={(e) => { e.stopPropagation(); handleReview('easy'); }}
-                  className="flex-1 bg-emerald-50 hover:bg-emerald-100/80 border border-emerald-200 text-emerald-600 font-bold py-3.5 px-4 rounded-xl flex items-center justify-center gap-2 cursor-pointer transition-all"
+                  className="flex-1 bg-emerald-950/20 hover:bg-emerald-900/30 border border-emerald-500/20 text-emerald-300 font-bold py-3.5 px-4 rounded-xl flex items-center justify-center gap-2 cursor-pointer transition-all"
                 >
                   <ThumbsUp className="h-4 w-4" />
                   Got It! (Easy)
@@ -206,19 +204,19 @@ const Flashcards = () => {
               </div>
             )}
             
-            <div className="mt-8 bg-slate-100/50 border border-slate-200/60 rounded-xl p-4 flex justify-between items-center text-xs">
-              <div className="flex items-center gap-1.5 text-slate-500">
-                <Info className="h-4 w-4 text-indigo-500" />
+            <div className="mt-8 bg-white/5 border border-white/10 rounded-xl p-4 flex justify-between items-center text-xs">
+              <div className="flex items-center gap-1.5 text-gray-300">
+                <Info className="h-4 w-4 text-[#A78BFA]" />
                 <span>Leitner Level Box:</span>
               </div>
-              <span className="font-bold text-slate-700 px-3 py-1 rounded bg-slate-200">Box #{activeCard.box} / 5</span>
+              <span className="font-bold text-white px-3 py-1 rounded bg-white/10">Box #{activeCard.box} / 5</span>
             </div>
           </div>
         ) : (
           <div className="text-center py-20 premium-card p-6">
-            <Copy className="h-12 w-12 text-slate-300 mx-auto mb-4" />
-            <h3 className="text-md font-bold text-slate-400">No Flashcards Found</h3>
-            <p className="text-xs text-slate-400 mt-1">Select a document above and click Generate to start your review deck.</p>
+            <Copy className="h-12 w-12 text-gray-500 mx-auto mb-4" />
+            <h3 className="text-md font-bold text-gray-400">No Flashcards Found</h3>
+            <p className="text-xs text-gray-400 mt-1">Select a document above and click Generate to start your review deck.</p>
           </div>
         )}
       </div>

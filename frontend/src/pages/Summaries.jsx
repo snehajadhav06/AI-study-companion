@@ -5,23 +5,21 @@ import ReactMarkdown from 'react-markdown';
 import { 
   BookOpen, 
   Sparkles, 
-  FileText, 
-  ChevronRight,
-  Printer
+  ChevronRight
 } from 'lucide-react';
 
 const markdownComponents = {
   h1: ({ children }) => (
-    <h1 className="text-xl font-extrabold text-slate-900 mt-6 mb-3 first:mt-0">{children}</h1>
+    <h1 className="text-xl font-extrabold text-white mt-6 mb-3 first:mt-0">{children}</h1>
   ),
   h2: ({ children }) => (
-    <h2 className="text-lg font-extrabold text-indigo-700 mt-7 mb-3 pb-2 border-b border-indigo-100 first:mt-0">{children}</h2>
+    <h2 className="text-lg font-extrabold text-[#A78BFA] mt-7 mb-3 pb-2 border-b border-white/10 first:mt-0">{children}</h2>
   ),
   h3: ({ children }) => (
-    <h3 className="text-base font-extrabold text-indigo-700 mt-7 mb-3 pb-2 border-b border-indigo-100 first:mt-0">{children}</h3>
+    <h3 className="text-base font-extrabold text-[#A78BFA] mt-7 mb-3 pb-2 border-b border-white/10 first:mt-0">{children}</h3>
   ),
   p: ({ children }) => (
-    <p className="text-sm text-slate-700 leading-relaxed mb-3">{children}</p>
+    <p className="text-sm text-gray-200 leading-relaxed mb-3">{children}</p>
   ),
   ul: ({ children }) => (
     <ul className="space-y-2 mb-4 pl-1">{children}</ul>
@@ -30,21 +28,21 @@ const markdownComponents = {
     <ol className="space-y-2 mb-4 pl-1">{children}</ol>
   ),
   li: ({ children, ordered, index }) => (
-    <li className="flex gap-2.5 text-sm text-slate-700 leading-relaxed">
-      <span className="text-indigo-400 font-bold mt-0.5 flex-shrink-0 min-w-[14px]">
+    <li className="flex gap-2.5 text-sm text-gray-200 leading-relaxed">
+      <span className="text-[#A78BFA] font-bold mt-0.5 flex-shrink-0 min-w-[14px]">
         {ordered ? `${(index ?? 0) + 1}.` : '•'}
       </span>
       <span>{children}</span>
     </li>
   ),
   strong: ({ children }) => (
-    <strong className="font-bold text-slate-900">{children}</strong>
+    <strong className="font-bold text-white">{children}</strong>
   ),
   code: ({ children }) => (
-    <code className="bg-indigo-50 text-indigo-700 px-1.5 py-0.5 rounded-md text-xs font-mono border border-indigo-100">{children}</code>
+    <code className="bg-white/5 text-[#A78BFA] px-1.5 py-0.5 rounded-md text-xs font-mono border border-white/10">{children}</code>
   ),
   pre: ({ children }) => (
-    <pre className="bg-slate-900 text-slate-100 p-4 rounded-xl text-xs font-mono overflow-x-auto mb-4">{children}</pre>
+    <pre className="bg-black/40 border border-white/5 text-gray-200 p-4 rounded-xl text-xs font-mono overflow-x-auto mb-4">{children}</pre>
   ),
 };
 
@@ -115,39 +113,39 @@ const Summaries = () => {
   };
 
   return (
-    <div className="space-y-8">
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center pb-4 border-b border-slate-100 gap-4">
+    <div className="space-y-8 text-white text-left">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center pb-4 border-b border-white/10 gap-4">
         <div>
-          <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight">AI Chapter Summaries</h1>
-          <p className="text-slate-500 mt-1">Generate key takeaways, revision notes, and formula sheets from documents.</p>
+          <h1 className="text-3xl font-extrabold tracking-tight">AI Chapter Summaries</h1>
+          <p className="text-gray-300 mt-1">Generate key takeaways, revision notes, and formula sheets from documents.</p>
         </div>
 
         <div className="flex flex-wrap items-center gap-3 w-full sm:w-auto">
           <select
             value={selectedDocId}
             onChange={(e) => setSelectedDocId(e.target.value)}
-            className="bg-white border border-slate-200 rounded-xl px-4 py-2 text-slate-805 focus:outline-none focus:border-indigo-500 text-sm w-full sm:w-56"
+            className="bg-white/5 border border-white/10 rounded-xl px-4 py-2 text-white focus:outline-none focus:border-[#8B5CF6] focus:ring-4 focus:ring-[#8B5CF6]/15 text-sm w-full sm:w-56"
           >
-            <option value="">Select document...</option>
+            <option value="" className="bg-[#071020] text-white">Select document...</option>
             {documents.map((doc) => (
-              <option key={doc.id} value={doc.id}>{doc.filename}</option>
+              <option key={doc.id} value={doc.id} className="bg-[#071020] text-white">{doc.filename}</option>
             ))}
           </select>
 
           <select
             value={detailLevel}
             onChange={(e) => setDetailLevel(e.target.value)}
-            className="bg-white border border-slate-200 rounded-xl px-4 py-2 text-slate-805 focus:outline-none focus:border-indigo-500 text-sm w-full sm:w-36"
+            className="bg-white/5 border border-white/10 rounded-xl px-4 py-2 text-white focus:outline-none focus:border-[#8B5CF6] focus:ring-4 focus:ring-[#8B5CF6]/15 text-sm w-full sm:w-36"
           >
-            <option value="brief">Brief Bullet-points</option>
-            <option value="medium">Standard Summary</option>
-            <option value="detailed">In-depth Analysis</option>
+            <option value="brief" className="bg-[#071020]">Brief Bullet-points</option>
+            <option value="medium" className="bg-[#071020]">Standard Summary</option>
+            <option value="detailed" className="bg-[#071020]">In-depth Analysis</option>
           </select>
 
           <button
             onClick={handleGenerate}
             disabled={!selectedDocId || generating}
-            className="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-4 py-2 rounded-xl flex items-center gap-1.5 transition-all text-sm disabled:opacity-50 cursor-pointer shadow-lg shadow-indigo-100"
+            className="bg-gradient-to-r from-[#6366F1] to-[#8B5CF6] hover:shadow-[0_0_20px_rgba(139,92,246,0.35)] text-white font-semibold px-4 py-2 rounded-xl flex items-center gap-1.5 transition-all text-sm disabled:opacity-50 cursor-pointer hover:-translate-y-0.5"
           >
             <Sparkles className="h-4 w-4" />
             {generating ? 'Generating...' : 'Generate'}
@@ -157,9 +155,9 @@ const Summaries = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
         <div className="premium-card p-6 h-fit">
-          <h3 className="text-md font-bold text-slate-800 mb-4">Saved Summaries</h3>
+          <h3 className="text-md font-bold mb-4">Saved Summaries</h3>
           {summaries.length === 0 ? (
-            <p className="text-xs text-slate-400 font-medium">No summaries generated yet.</p>
+            <p className="text-xs text-gray-400 font-medium">No summaries generated yet.</p>
           ) : (
             <div className="space-y-2">
               {summaries.map((sum) => (
@@ -168,8 +166,8 @@ const Summaries = () => {
                   onClick={() => setSelectedSummary(sum)}
                   className={`w-full text-left p-3 rounded-xl flex justify-between items-center transition-all cursor-pointer ${
                     selectedSummary?.id === sum.id
-                      ? 'bg-indigo-50 border border-indigo-100 text-indigo-600 font-bold'
-                      : 'bg-slate-50/50 border border-slate-100 text-slate-500 hover:text-slate-900 hover:bg-slate-100/50'
+                      ? 'bg-gradient-to-r from-[#6366F1] to-[#8B5CF6] text-white font-bold'
+                      : 'bg-white/5 border border-white/10 text-gray-300 hover:text-white hover:bg-white/10'
                   }`}
                 >
                   <span className="truncate text-xs">{sum.title}</span>
@@ -180,13 +178,13 @@ const Summaries = () => {
           )}
         </div>
 
-        <div className="lg:col-span-3 premium-card p-8">
+        <div className="lg:col-span-3 premium-card p-6 md:p-8">
           {selectedSummary ? (
             <div className="space-y-6">
-              <div className="flex justify-between items-center border-b border-slate-100 pb-4">
-                <h2 className="text-xl font-bold text-slate-900">{selectedSummary.title}</h2>
+              <div className="flex justify-between items-center border-b border-white/10 pb-4">
+                <h2 className="text-xl font-bold">{selectedSummary.title}</h2>
                 <div className="flex items-center gap-2">
-                  <span className="text-xs text-slate-400 font-medium">{new Date(selectedSummary.created_at).toLocaleDateString()}</span>
+                  <span className="text-xs text-gray-400 font-medium">{new Date(selectedSummary.created_at).toLocaleDateString()}</span>
                 </div>
               </div>
               
@@ -196,9 +194,9 @@ const Summaries = () => {
             </div>
           ) : (
             <div className="text-center py-20">
-              <BookOpen className="h-12 w-12 text-slate-300 mx-auto mb-4" />
-              <h3 className="text-md font-bold text-slate-400">No Summary Selected</h3>
-              <p className="text-xs text-slate-400 mt-1">Select a summary from the list or click Generate above to create one.</p>
+              <BookOpen className="h-12 w-12 text-gray-500 mx-auto mb-4" />
+              <h3 className="text-md font-bold text-gray-400">No Summary Selected</h3>
+              <p className="text-xs text-gray-400 mt-1">Select a summary from the list or click Generate above to create one.</p>
             </div>
           )}
         </div>

@@ -126,3 +126,12 @@ class StudyPlan(Base):
     end_date = Column(DateTime, nullable=True)
 
     user = relationship("User", back_populates="study_plans")
+
+class ModerationLog(Base):
+    __tablename__ = "moderation_logs"
+
+    id = Column(Integer, primary_key=True, index=True)
+    timestamp = Column(DateTime, default=datetime.datetime.utcnow)
+    filename = Column(String, nullable=False)
+    reason = Column(String, nullable=False)
+    category_detected = Column(String, nullable=False)

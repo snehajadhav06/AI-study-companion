@@ -1,0 +1,99 @@
+{
+  "ai_moderation_enabled": true,
+  "strictness": "medium",
+  "enabled_categories": [
+    "explicit_sexual_content",
+    "pornography",
+    "graphic_violence",
+    "self_harm_encouragement",
+    "illegal_activities",
+    "drug_manufacturing",
+    "bomb_explosive_instructions",
+    "fraud_scams",
+    "hate_speech",
+    "terrorism",
+    "criminal_instructions"
+  ],
+  "blocked_keywords": {
+    "explicit_sexual_content": [
+      "nsfw",
+      "erotic",
+      "sex",
+      "orgasm",
+      "penetration",
+      "intercourse",
+      "nude",
+      "nudity"
+    ],
+    "pornography": [
+      "porn",
+      "pornography",
+      "xxx",
+      "hentai",
+      "camgirl",
+      "playboy"
+    ],
+    "graphic_violence": [
+      "gore",
+      "decapitate",
+      "mutilate",
+      "dismember",
+      "bloodshed",
+      "massacre"
+    ],
+    "self_harm_encouragement": [
+      "suicide",
+      "self-harm",
+      "kill myself",
+      "slit wrists",
+      "cutting myself"
+    ],
+    "illegal_activities": [
+      "hack",
+      "malware",
+      "ransomware",
+      "ddos",
+      "pirated",
+      "torrenting"
+    ],
+    "drug_manufacturing": [
+      "methamphetamine",
+      "cook meth",
+      "synthesize heroin",
+      "fentanyl recipe"
+    ],
+    "bomb_explosive_instructions": [
+      "make a bomb",
+      "build an explosive",
+      "detonate",
+      "ied recipe",
+      "tnt recipe"
+    ],
+    "fraud_scams": [
+      "phishing",
+      "carding",
+      "money laundering",
+      "identity theft",
+      "wire fraud"
+    ],
+    "hate_speech": [
+      "slur",
+      "neo-nazi",
+      "white supremacy",
+      "racial slur"
+    ],
+    "terrorism": [
+      "jihadist",
+      "isis",
+      "al-qaeda",
+      "terrorist attack"
+    ],
+    "criminal_instructions": [
+      "how to shoplift",
+      "pickpocket",
+      "break into a car",
+      "bypass lock",
+      "lockpick"
+    ]
+  }
+}
