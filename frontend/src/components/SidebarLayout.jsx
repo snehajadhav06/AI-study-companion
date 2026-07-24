@@ -87,7 +87,7 @@ const SidebarLayout = ({ children }) => {
             className="fixed inset-0 bg-[#071020]/60 backdrop-blur-sm transition-opacity duration-300"
           />
 
-          <aside className="relative flex flex-col justify-between w-64 max-w-xs h-full z-50 bg-[#071020]/90 border-r border-transparent backdrop-blur-xl">
+          <aside className="relative flex flex-col justify-between w-64 max-w-xs h-full z-50 bg-[#0A0F24]/95 border-r border-white/10 shadow-[4px_0_24px_rgba(0,0,0,0.3)] backdrop-blur-xl">
             <div>
               <div className="flex items-center justify-between p-5 border-b border-white/10">
                 <Link to="/dashboard" className="flex items-center gap-2" onClick={() => setIsMobileOpen(false)}>
@@ -157,7 +157,7 @@ const SidebarLayout = ({ children }) => {
 
       {/* Desktop Sidebar */}
       <aside 
-        className={`hidden md:flex flex-col justify-between transition-all duration-300 relative z-20 bg-[#071020]/60 border-r border-transparent backdrop-blur-xl ${
+        className={`hidden md:flex flex-col justify-between transition-all duration-300 relative z-20 bg-[#0A0F24]/95 border-r border-white/10 shadow-[4px_0_24px_rgba(0,0,0,0.3)] backdrop-blur-xl ${
           isCollapsed ? 'w-20' : 'w-64'
         }`}
       >
