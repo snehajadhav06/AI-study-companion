@@ -8,6 +8,7 @@ from app.schemas.schemas import ChatRequest, ChatResponse, ChatMessageResponse, 
 from app.api.deps import get_current_user
 from app.services.rag_service import vector_store
 from app.services.llm_service import llm_service
+from app.services.content_moderation import check_ai_response
 
 router = APIRouter()
 
@@ -50,6 +51,9 @@ async def chat_interaction(
     formatted_history = [{"role": msg.role, "content": msg.content} for msg in history_messages]
     
     ai_answer = await llm_service.generate_rag_answer(request.question, context_str, formatted_history)
+    
+    # Run moderation check on AI response
+    ai_answer = await check_ai_response(ai_answer)
     
     citations = [
         Citation(content=res["content"], page=res["page_number"])

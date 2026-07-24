@@ -11,6 +11,7 @@ class Settings(BaseSettings):
     MODEL_NAME: str = "openai/gpt-oss-120b:free"
     CHROMA_DB_DIR: str = "./chroma_db"
     UPLOADS_DIR: str = "./uploads"
+    MODERATION_CONFIG_PATH: str = os.path.join(os.path.dirname(__file__), "moderation_config.json")
 
     class Config:
         env_file = ".env"

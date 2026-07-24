@@ -13,14 +13,15 @@ import Summaries from './pages/Summaries';
 import Flashcards from './pages/Flashcards';
 import Quizzes from './pages/Quizzes';
 import StudyPlanner from './pages/StudyPlanner';
+import Moderation from './pages/Moderation';
 
 function RootRoute() {
   const { isAuthenticated, loading } = useAuth();
   
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-slate-50">
-        <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-indigo-600"></div>
+      <div className="flex items-center justify-center min-h-screen bg-[#071020]">
+        <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-[#8B5CF6]"></div>
       </div>
     );
   }
@@ -47,6 +48,7 @@ function AppContent() {
       <Route path="/quizzes" element={<ProtectedRoute><Quizzes /></ProtectedRoute>} />
       <Route path="/quiz" element={<ProtectedRoute><Quizzes /></ProtectedRoute>} />
       <Route path="/planner" element={<ProtectedRoute><StudyPlanner /></ProtectedRoute>} />
+      <Route path="/moderation" element={<ProtectedRoute><Moderation /></ProtectedRoute>} />
       <Route path="/analytics" element={<Navigate to="/dashboard" replace />} />
       <Route path="/settings" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
       <Route path="*" element={<Navigate to="/" replace />} />

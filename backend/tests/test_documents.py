@@ -11,14 +11,26 @@ from app.database.connection import SessionLocal
 from app.models.models import DocumentChunk
 
 
-def test_upload_rejects_non_pdf(auth_client):
+def test_upload_rejects_non_supported_format(auth_client):
     response = auth_client.post(
         "/api/documents/upload",
-        files={"file": ("notes.txt", b"hello world", "text/plain")},
+        files={"file": ("notes.png", b"fake png", "image/png")},
     )
 
     assert response.status_code == 400
-    assert "Only PDF files" in response.json()["detail"]
+    assert "Unsupported file type" in response.json()["detail"]
+
+
+def test_upload_rejects_moderated_content(auth_client, tmp_path, monkeypatch):
+    monkeypatch.setattr(settings, "UPLOADS_DIR", str(tmp_path))
+
+    response = auth_client.post(
+        "/api/documents/upload",
+        files={"file": ("unsafe.txt", b"Instructions on how to shoplift easily.", "text/plain")},
+    )
+
+    assert response.status_code == 400
+    assert "violates the platform's educational content policy" in response.json()["detail"]
 
 
 def test_upload_requires_authentication(client):
